@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+    <!--  Remove scope="prototype" to get default scope of singleton  -->
+<!--    <bean id="dsa" class="org.example.DsaCourse" scope="prototype" ></bean>-->
+
+    <bean id="dsa" class="org.example.DsaCourse" ></bean>
+    <bean id="spr" class="org.example.SpringCourse" primary="true" ></bean>
+
+<!--    If one interface having 2 implementations then there is chance of getting ambiguity problem to overcome this we need to use 'autowire-candidate' or primary -->
+
+<!--    solution 1 use property-->
+<!--    <bean id="std" class="org.example.Student">-->
+<!--        <property name="course" ref="dsa" ></property>-->
+<!--    </bean>-->
+
+<!--    solution 2 add autowire-candidate="false" for eg
+     <bean id="dsa" class="org.example.DsaCourse" autowire-candidate="false" ></bean>
+ in the bean you dont want to inject its dependency-->
+<!--    <bean id="std" class="org.example.Student" autowire="byType" ></bean>-->
+
+<!--    Solution 3 add primary="true" in which bean you want to inject that as dependency like this
+            <bean id="spr" class="org.example.SpringCourse" primary="true" ></bean>
+ -->
+    <bean id="std" class="org.example.Student" autowire="byType" ></bean>
+
+
+
+    <!--    autoWire byName id me course aaya bcz course is the Dependecny we are injecting in Student class so byName me aise hi hota hai-->
+<!--        <bean id="course" class="org.example.DsaCourse" ></bean>-->
+
+
+
+    <!--    <bean id="std" class="org.example.Student" scope="prototype">-->
+<!--       By default setter DI     -->
+<!--        <property name="course" ref="dsa"></property>-->
+<!--    </bean>-->
+
+<!-- === SETTER DI -->
+<!--    <bean id="std" class="org.example.Student">-->
+<!--         By default setter DI     -->
+<!--        <property name="course" ref="dsa"></property>-->
+<!--    </bean>-->
+
+<!--    autowire constructor-->
+<!--    Initially constructor DI will be done then setter DI will override that -->
+<!--    <bean id="std" class="org.example.Student" autowire="constructor">-->
+<!--           By default setter DI      -->
+<!--        <property name="course" ref="dsa"></property>-->
+<!--    </bean>-->
+
+<!--    Only Constructor DI-->
+<!--    <bean id="std" class="org.example.Student" autowire="constructor">-->
+<!--    </bean>-->
+
+<!--    autowire byType-->
+<!--    <bean id="std" class="org.example.Student" autowire="byType">-->
+<!--    </bean>-->
+
+<!--    autowire byName-->
+<!--    <bean id="std" class="org.example.Student" autowire="byName">-->
+<!--    </bean>-->
+
+
+<!--    Note :
+          === Injection order====
+             1.  Constructor injection
+             2.     Setter injection
+             3.  Field injection
+-->
+
+</beans>
