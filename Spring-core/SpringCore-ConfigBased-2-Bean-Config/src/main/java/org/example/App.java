@@ -10,5 +10,7 @@ public class App
     {
         ApplicationContext context=new AnnotationConfigApplicationContext(AppConfig.class);
 
+        User user =context.getBean(User.class);
+        System.out.println(user.getName());
     }
 }

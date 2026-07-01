@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class OrderService {
 
     public void placeOrder(){
-        System.out.println("Order Placed by ");
+        System.out.println("Order Placed");
     }
 
 }
