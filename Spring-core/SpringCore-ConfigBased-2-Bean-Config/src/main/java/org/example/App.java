@@ -11,6 +11,10 @@ public class App
         ApplicationContext context=new AnnotationConfigApplicationContext(AppConfig.class);
 
         User user =context.getBean(User.class);
-        System.out.println(user.getName());
+        System.out.println(user.getName()+" is placing an order");
+
+        OrderService order=context.getBean(OrderService.class);
+        order.placeOrder();
+
     }
 }
