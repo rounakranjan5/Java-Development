@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+
+<!--    <bean id="paymentService1" name="p1" class="org.example.Payment.PaymentService" />-->
+<!--    <bean id="paymentService2" name="p2" class="org.example.Payment.PaymentService" />-->
+
+<!--    Constructor DI-->
+<!--    <bean id="orderService" class="org.example.OrderService">-->
+<!--        <constructor-arg ref="paymentService"/>-->
+<!--    </bean>-->
+
+<!--    alias bean name-->
+<!--    <bean id="paymentService" name="paymentGate, payyou, mbkwick" class="org.example.Payment.PaymentService" />-->
+
+<!--    setter DI-->
+<!--    <bean id="ps" name="paymentService" class="org.example.Payment.PaymentService"/>-->
+
+<!--    <bean id="OrderService" name="orderService" class="org.example.OrderService">-->
+<!--        <property name="paymentService" ref="ps"/>-->
+<!--&lt;!&ndash;        name hoga setter function ka without set from the prefix and ref hoga uski bean ki id/name&ndash;&gt;-->
+<!--    </bean>-->
+
+
+<!--    Constructor DI with values -->
+<!--    <bean id="ps" name="paymentServ" class="org.example.Payment.PaymentService"/>-->
+
+<!--    <bean id="os" name="orderServ" class="org.example.OrderService">-->
+
+<!--&lt;!&ndash;        passing values by index number&ndash;&gt;-->
+<!--&lt;!&ndash;        <constructor-arg ref="ps" index="0" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <constructor-arg value="2" index="1"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <constructor-arg value="PAYOU" index="2"/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        passing values by type&ndash;&gt;-->
+<!--        <constructor-arg ref="ps"/>-->
+<!--        <constructor-arg value="PAYOU" type="String" />-->
+<!--        <constructor-arg value="2" type="int"/>-->
+
+
+<!--    </bean>-->
+
+
+<!--    <bean id="upi" name="upiPay" class="org.example.Payment.UpiPayment" scope="prototype" />-->
+<!--    <bean id="card" name="cardPay" class="org.example.Payment.CardPayment" primary="true" />  -->
+
+<!--    <bean id="upi" name="upiPay" class="org.example.Payment.UpiPayment" autowire-candidate="false"  scope="prototype"/>-->
+<!--    <bean id="card" name="cardPay" class="org.example.Payment.CardPayment" init-method="init" destroy-method="cleanup" scope="prototype">-->
+<!--        <constructor-arg index="0" name="applicableCard" >-->
+<!--            <list>-->
+<!--                <value>VISA</value>-->
+<!--                <value>Rupay</value>-->
+<!--                <value>MasterCard</value>-->
+<!--            </list>-->
+<!--        </constructor-arg>-->
+
+<!--        <constructor-arg index="1" name="cardToChargesmap">-->
+<!--            <map>-->
+<!--                <entry key="creditCard" value="5" />-->
+<!--                <entry key="debitCard" value="1.25" />-->
+<!--            </map>-->
+<!--        </constructor-arg>-->
+
+<!--    </bean>-->
+
+    <bean id="order" name="orderServ" class="org.example.OrderService" autowire="constructor" scope="prototype">
+<!--        <constructor-arg ref="upi"/>-->
+        <constructor-arg index="1" name="retryCounts" value="3"/>
+        <constructor-arg index="2" name="gatewayName" value="Stripe"/>
+    </bean>
+
+</beans>

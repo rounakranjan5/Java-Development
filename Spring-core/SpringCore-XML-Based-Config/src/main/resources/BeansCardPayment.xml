@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<bean id="card" name="cardPay" class="org.example.Payment.CardPayment" init-method="init" destroy-method="cleanup" scope="prototype">
+        <constructor-arg index="0" name="applicableCard" >
+            <list>
+                <value>VISA</value>
+                <value>Rupay</value>
+                <value>MasterCard</value>
+            </list>
+        </constructor-arg>
+
+        <constructor-arg index="1" name="cardToChargesmap">
+            <map>
+                <entry key="creditCard" value="5" />
+                <entry key="debitCard" value="1.25" />
+            </map>
+        </constructor-arg>
+
+    </bean>
+
+
+</beans>
