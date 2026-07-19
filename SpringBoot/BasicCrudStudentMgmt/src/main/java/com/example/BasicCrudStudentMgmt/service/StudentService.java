@@ -24,20 +24,19 @@ public class StudentService {
     }
 
     public Optional<Student> getStudent(Long id){
-        Optional<Student> student= studentRepository.findById(id);
+        Optional<Student> student= studentRepository.findByIdAndDeletedFalse(id);
         return student;
     }
 
     public Student enrollNewStudent(Student newUserdata){
-
+        newUserdata.setDeleted(false);
         Student addedUser=studentRepository.save(newUserdata);
-
         return addedUser;
     }
 
     public Student updateStudentData(Long id, Student newData){
 
-        Optional<Student> presentStudentState=studentRepository.findById(id);
+        Optional<Student> presentStudentState=studentRepository.findByIdAndDeletedFalse(id);
 
         if(presentStudentState.isEmpty()) return null;
 
@@ -63,6 +62,19 @@ public class StudentService {
 
         return true;
 
+    }
+
+    public Boolean deleteStudentSoftly(Long id){
+        Optional<Student> stud=studentRepository.findByIdAndDeletedFalse(id);
+
+        if(stud.isEmpty()) return false;
+
+        Student existingStudent=stud.get();
+
+        existingStudent.setDeleted(true);
+        studentRepository.save(existingStudent);
+
+        return true;
     }
 
 }

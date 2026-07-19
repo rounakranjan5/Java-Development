@@ -1,12 +1,15 @@
 package com.example.BasicCrudStudentMgmt.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Student {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String firstName;
@@ -15,6 +18,7 @@ public class Student {
     private int rollNumb;
     private String course;
     private String email;
+    private boolean deleted;
 
     public Long getId() {
         return id;
@@ -71,6 +75,14 @@ public class Student {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 }
 
 /*
@@ -80,9 +92,8 @@ public class Student {
     "lastName": "paul",
     "age": 22,
     "course": "MBA",
-    "rollNo": 98,
+    "rollNumb": 98,
     "email": "jack@paul.com",
-    "id": 1
 }
 
  */
