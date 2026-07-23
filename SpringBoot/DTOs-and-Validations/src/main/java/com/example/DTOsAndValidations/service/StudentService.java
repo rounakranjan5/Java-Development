@@ -2,11 +2,14 @@ package com.example.DTOsAndValidations.service;
 
 import com.example.DTOsAndValidations.dto.CreateStudentRequestDto;
 import com.example.DTOsAndValidations.dto.CreateStudentResponseDto;
+import com.example.DTOsAndValidations.dto.UpdateStudentRequestDto;
+import com.example.DTOsAndValidations.dto.UpdateStudentResponseDto;
 import com.example.DTOsAndValidations.entity.Student;
 import com.example.DTOsAndValidations.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.lang.Boolean;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,15 +22,24 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public List<Student> displayAllStudents(){
+    public List<CreateStudentResponseDto> displayAllStudents(){
         List<Student> data=studentRepository.findAll();
 
-        return data;
+        List<CreateStudentResponseDto> createStudentResponseDtos=new ArrayList<>();
+
+        for(int i=0;i<data.size();i++){
+            createStudentResponseDtos.add(mapToDto(data.get(i)));
+        }
+
+        return createStudentResponseDtos;
     }
 
-    public Optional<Student> getStudent(Long id){
+    public CreateStudentResponseDto getStudent(Long id){
         Optional<Student> student= studentRepository.findByIdAndDeletedFalse(id);
-        return student;
+
+        CreateStudentResponseDto studentResponseDto=mapToDto(student.get());
+
+        return studentResponseDto;
     }
 
     public CreateStudentResponseDto enrollNewStudent(CreateStudentRequestDto studentRequestDto){
@@ -40,7 +52,7 @@ public class StudentService {
         return mapToDto(addedUser);
     }
 
-    public Student updateStudentData(Long id, Student newData){
+    public UpdateStudentResponseDto updateStudentData(Long id, UpdateStudentRequestDto newData){
 
         Optional<Student> presentStudentState=studentRepository.findByIdAndDeletedFalse(id);
 
@@ -50,12 +62,16 @@ public class StudentService {
 
         existingStud.setAge(newData.getAge());
         existingStud.setCourse(newData.getCourse());
-        existingStud.setEmail(newData.getEmail());
+//        existingStud.setEmail(newData.getEmail());
         existingStud.setFirstName(newData.getFirstName());
         existingStud.setLastName(newData.getLastName());
         existingStud.setRollNumb(newData.getRollNumb());
 
-        return studentRepository.save(existingStud);
+//        return studentRepository.save(existingStud);
+
+        Student savedStudent=studentRepository.save(existingStud);
+
+        return mapToUpdateDto(savedStudent);
 
     }
 
@@ -99,6 +115,8 @@ public class StudentService {
         return student;
     }
 
+
+
     private CreateStudentResponseDto mapToDto(Student student){
         CreateStudentResponseDto responseDto=new CreateStudentResponseDto();
 
@@ -111,6 +129,21 @@ public class StudentService {
         responseDto.setEmail(student.getEmail());
         responseDto.setDeleted(student.isDeleted());
         responseDto.setMessage("Student Created Successfully !!");
+
+        return responseDto;
+
+    }
+
+    private UpdateStudentResponseDto mapToUpdateDto(Student student){
+        UpdateStudentResponseDto responseDto=new UpdateStudentResponseDto();
+
+        responseDto.setAge(student.getAge());
+        responseDto.setCourse(student.getCourse());
+        responseDto.setFirstName(student.getFirstName());
+        responseDto.setLastName(student.getLastName());
+        responseDto.setRollNumb(student.getRollNumb());
+
+        responseDto.setMessage("Student Updated Successfully !!");
 
         return responseDto;
 

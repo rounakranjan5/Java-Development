@@ -3,8 +3,11 @@ package com.example.DTOsAndValidations.controller;
 
 import com.example.DTOsAndValidations.dto.CreateStudentRequestDto;
 import com.example.DTOsAndValidations.dto.CreateStudentResponseDto;
+import com.example.DTOsAndValidations.dto.UpdateStudentRequestDto;
+import com.example.DTOsAndValidations.dto.UpdateStudentResponseDto;
 import com.example.DTOsAndValidations.entity.Student;
 import com.example.DTOsAndValidations.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +29,7 @@ public class StudentController {
     // ---------- CREATE ---------------
 
     @PostMapping("/create")
-    public ResponseEntity<CreateStudentResponseDto> createStudent(@RequestBody CreateStudentRequestDto studentRequestDto){
+    public ResponseEntity<CreateStudentResponseDto> createStudent(@Valid @RequestBody CreateStudentRequestDto studentRequestDto){
         CreateStudentResponseDto student=studentService.enrollNewStudent(studentRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(student);
     }
@@ -35,8 +38,8 @@ public class StudentController {
     // ----------- READ ----------------
 
     @GetMapping("/student")
-    public ResponseEntity<List<Student>> getAllStudents(){
-        List<Student> data= studentService.displayAllStudents();
+    public ResponseEntity<List<CreateStudentResponseDto>> getAllStudents(){
+        List<CreateStudentResponseDto> data= studentService.displayAllStudents();
 
         if(data.isEmpty()) return ResponseEntity.notFound().build();
 
@@ -44,22 +47,22 @@ public class StudentController {
     }
 
     @GetMapping("/student/{id}")
-    public ResponseEntity<Student> getStudent(@PathVariable Long id ){
+    public ResponseEntity<CreateStudentResponseDto> getStudent(@PathVariable Long id ){
 
-        Optional<Student> student =studentService.getStudent(id);
+        CreateStudentResponseDto student =studentService.getStudent(id);
 
-        if(!student.isPresent()) return ResponseEntity.notFound().build();
+        if(student==null) return ResponseEntity.notFound().build();
 
-        return ResponseEntity.ok(student.get());
+        return ResponseEntity.ok(student);
 
 
     }
 
     // --------- UPDATE ------------------
     @PutMapping("/student/{id}/update")
-    public ResponseEntity<Student> updateStudent(@PathVariable Long id , @RequestBody Student updatedData){
+    public ResponseEntity<UpdateStudentResponseDto> updateStudent(@PathVariable Long id , @RequestBody UpdateStudentRequestDto updateStudentRequestDto){
 
-        Student student=studentService.updateStudentData(id,updatedData);
+        UpdateStudentResponseDto student=studentService.updateStudentData(id,updateStudentRequestDto);
 
         if(student==null) return ResponseEntity.notFound().build();
 
