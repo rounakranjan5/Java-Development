@@ -51,10 +51,7 @@ public class StudentController {
 
         CreateStudentResponseDto student =studentService.getStudent(id);
 
-        if(student==null) return ResponseEntity.notFound().build();
-
         return ResponseEntity.ok(student);
-
 
     }
 
@@ -63,9 +60,6 @@ public class StudentController {
     public ResponseEntity<UpdateStudentResponseDto> updateStudent(@PathVariable Long id , @RequestBody UpdateStudentRequestDto updateStudentRequestDto){
 
         UpdateStudentResponseDto student=studentService.updateStudentData(id,updateStudentRequestDto);
-
-        if(student==null) return ResponseEntity.notFound().build();
-
         return ResponseEntity.ok(student);
 
     }
@@ -77,11 +71,9 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable Long id){
 
-        Boolean studentresp=studentService.deleteStudentData(id);
+        studentService.deleteStudentData(id);
 
-        if(studentresp==null) return ResponseEntity.notFound().build();
-
-        return ResponseEntity.ok("Student with id : "+id+" deleted successfully");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Student with id : "+id+" deleted successfully");
 
     }
 
@@ -91,11 +83,10 @@ public class StudentController {
     @PatchMapping("/soft-delete")
     public ResponseEntity<String> softDeleteStudent(@RequestParam Long id){
 
-        Boolean isdeleted=studentService.deleteStudentSoftly(id);
+        studentService.deleteStudentSoftly(id);
 
-        if(!isdeleted) return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Student with id : "+id+" marked as DELETED");
 
-        return ResponseEntity.ok("Student with id : "+id+" marked as DELETED");
     }
 
 
