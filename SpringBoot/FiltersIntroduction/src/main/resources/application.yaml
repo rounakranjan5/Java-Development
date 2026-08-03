@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: FiltersIntroduction
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/student_db2
+    password:
+    username: 
+
+  jpa:
+    hibernate:
+      ddl-auto: update
