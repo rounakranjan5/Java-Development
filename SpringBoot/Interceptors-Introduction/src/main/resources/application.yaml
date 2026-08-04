@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: Interceptors-Introduction
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/student_db2
+    username:
+    password: 
+
+  jpa:
+    hibernate:
+      ddl-auto: update
