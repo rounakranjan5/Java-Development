@@ -1,6 +1,7 @@
 package com.example.PointCuts_And_Proxies_Types.controller;
 
 import com.example.PointCuts_And_Proxies_Types.dto.Student;
+import com.example.PointCuts_And_Proxies_Types.service.ParentStudentServiceInterface;
 import com.example.PointCuts_And_Proxies_Types.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class StudentController {
 
-    StudentService studentService;
+    ParentStudentServiceInterface studentService;
 
-    public StudentController(StudentService studentService) {
+    public StudentController(ParentStudentServiceInterface studentService) {
         this.studentService = studentService;
     }
 

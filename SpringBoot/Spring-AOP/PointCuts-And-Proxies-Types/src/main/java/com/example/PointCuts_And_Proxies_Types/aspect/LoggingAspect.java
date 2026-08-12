@@ -58,6 +58,14 @@ public class LoggingAspect {
         System.out.println(" @args method called");
     }
 
+//    @Before("this(com.example.PointCuts_And_Proxies_Types.service.StudentService)")
+//    public void proxyLogger(){
+//        System.out.println("PROXY Logger Activated");
+//    }
 
+    @Before("target(com.example.PointCuts_And_Proxies_Types.service.StudentService)")
+    public void proxyLogger(){
+        System.out.println("PROXY Logger Activated");
+    }
 
 }
