@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,5 +23,13 @@ public class Student {
 
     @ManyToOne
     Department department;
+
+    @ManyToMany
+    @JoinTable(
+            name = "student_society",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "society_id")
+    )
+    List<Society> societies=new ArrayList<>();
 
 }
