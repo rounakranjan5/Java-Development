@@ -19,4 +19,9 @@ public class DepartmentRepository {
         return entityManager.find(Department.class,id);
     }
 
+    // jpql
+    public Department getDepartmentByName(String name){
+        return entityManager.createQuery("SELECT d FROM Department d WHERE d.name= :name", Department.class).setParameter("name",name).getSingleResult();
+    }
+
 }

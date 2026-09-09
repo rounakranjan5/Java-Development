@@ -14,9 +14,9 @@ public class StudentController {
     private StudentService studentService;
 
     @PostMapping
-    public ResponseEntity<String> createStudent(@RequestBody Student student, @RequestParam Long DeptId){
+    public ResponseEntity<String> createStudent(@RequestBody Student student, @RequestParam Long deptId){
 
-        studentService.createStudent(student,DeptId);
+        studentService.createStudent(student,deptId);
         return ResponseEntity.ok("done");
     }
 

@@ -28,13 +28,26 @@ public class StudentService {
     @Transactional
     public void createStudent(Student student,String deptName){
 
-        Department department=new Department();
-        department.setName(deptName);
+        Department exisitingDepartment=departmentRepository.getDepartmentByName(deptName);
 
-        student.setDepartment(department);
-        department.getStudents().add(student);
-        departmentRepository.save(department);
-        studentRepository.save(student);
+        if(exisitingDepartment!=null){
+            student.setDepartment(exisitingDepartment);
+            exisitingDepartment.getStudents().add(student);
+            departmentRepository.save(exisitingDepartment);
+            studentRepository.save(student);
+        }
+
+        else{
+
+            Department department=new Department();
+            department.setName(deptName);
+
+            student.setDepartment(department);
+            department.getStudents().add(student);
+            departmentRepository.save(department);
+            studentRepository.save(student);
+
+        }
 
     }
 
