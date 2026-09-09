@@ -33,4 +33,10 @@ public class DepartmentService {
         departmentRepository.save(department);
     }
 
+    @Transactional
+    public void removeDepartment(Long id) {
+
+        departmentRepository.removeDepartment(id);
+
+    }
 }

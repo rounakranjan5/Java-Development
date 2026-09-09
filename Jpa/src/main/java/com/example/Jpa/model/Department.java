@@ -19,7 +19,10 @@ public class Department {
 
     private String name;
 
-    @OneToMany(mappedBy = "department")
+    @OneToMany(
+            mappedBy = "department",
+            cascade = CascadeType.REMOVE
+    )
     private List<Student> students=new ArrayList<>();
 
     public List<Student> addStudent(Student student){

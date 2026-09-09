@@ -5,10 +5,7 @@ import com.example.Jpa.service.DepartmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/api/dept")
@@ -27,6 +24,13 @@ public class DepartmentController {
     public ResponseEntity<String> createDepartment(@RequestBody Department department, @RequestParam String studentName){
         departmentService.createdept(department,studentName);
         return ResponseEntity.ok("department created successfully!!");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> removeDepartment(@PathVariable Long id){
+
+        departmentService.removeDepartment(id);
+        return ResponseEntity.ok("Department deleted");
     }
 
 }

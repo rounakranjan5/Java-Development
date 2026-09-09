@@ -24,4 +24,8 @@ public class DepartmentRepository {
         return entityManager.createQuery("SELECT d FROM Department d WHERE d.name= :name", Department.class).setParameter("name",name).getSingleResult();
     }
 
+    public void removeDepartment(Long id){
+        entityManager.remove(getDepartmentById(id));
+    }
+
 }
