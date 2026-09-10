@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -33,6 +34,11 @@ public class StudentController {
     public ResponseEntity<Student> getStudentByEmail(@PathVariable String email){
         Student existingStudent=studentService.getStudentByEmail(email);
         return ResponseEntity.ok(existingStudent);
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<Student>> getStudentBySameName(@PathVariable String name,@RequestParam int page,@RequestParam int size){
+        return ResponseEntity.ok(studentService.getStudentBySameName(name,page,size));
     }
 
 }
