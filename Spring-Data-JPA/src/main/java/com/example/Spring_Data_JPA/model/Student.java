@@ -24,4 +24,8 @@ public class Student {
 
     private String email;
 
+    private int age;
+
+    private int marks;
+
 }

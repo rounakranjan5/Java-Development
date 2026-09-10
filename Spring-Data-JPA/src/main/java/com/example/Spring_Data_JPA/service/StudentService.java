@@ -36,9 +36,11 @@ public class StudentService {
     //pagination
     public List<Student> getStudentBySameName(String name,int page,int size){
 
-//        Sort sort=Sort.by("name").ascending();
+        //sorting
+        // Primary sort by marks descending; if marks are equal, sort by age ascending.
+        Sort sort=Sort.by("marks").descending().and(Sort.by("age")).ascending();
 
-        Pageable pageable= PageRequest.of(page,size);
+        Pageable pageable= PageRequest.of(page,size,sort);
 
         Page<Student> studentList=studentRepository.findAllByName(name,pageable);
 
