@@ -29,10 +29,10 @@ public class UserController {
 
     }
 
-    @GetMapping("/csrf")
-    public CsrfToken getCsrfToken(CsrfToken csrfToken){
-        return csrfToken;
-    }
+//    @GetMapping("/csrf")
+//    public CsrfToken getCsrfToken(CsrfToken csrfToken){
+//        return csrfToken;
+//    }
 
 
 }
