@@ -17,12 +17,12 @@ public class UserController {
         this.authService = authService;
     }
 
-    @GetMapping
+    @GetMapping("/hello")
     public String hello(){
         return "Hello";
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<UserRegisterResponseDto> createUser(@RequestBody UserRegisterRequestDto userRegisterRequestDto){
         UserRegisterResponseDto resp=authService.createUser(userRegisterRequestDto);
         return ResponseEntity.ok(resp);

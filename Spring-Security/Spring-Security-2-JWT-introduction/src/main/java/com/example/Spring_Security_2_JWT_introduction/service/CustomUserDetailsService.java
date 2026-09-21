@@ -6,7 +6,10 @@ import com.example.Spring_Security_2_JWT_introduction.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;
@@ -18,7 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user=userRepository.findByUserName(username).orElseThrow(()-> new RuntimeException("User Not Found"));
+        User user=userRepository.findByUsername(username).orElseThrow(()-> new RuntimeException("User Not Found"));
 
         return new CustomUserDetails(user);
     }
