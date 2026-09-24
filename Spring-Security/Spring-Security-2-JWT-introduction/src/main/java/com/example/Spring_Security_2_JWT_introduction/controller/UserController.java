@@ -5,6 +5,7 @@ import com.example.Spring_Security_2_JWT_introduction.dto.UserRegisterRequestDto
 import com.example.Spring_Security_2_JWT_introduction.dto.UserRegisterResponseDto;
 import com.example.Spring_Security_2_JWT_introduction.service.AuthService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,8 +19,8 @@ public class UserController {
     }
 
     @GetMapping("/hello")
-    public String hello(){
-        return "Hello";
+    public String hello(Authentication authentication){
+        return "Hello! "+authentication.getName();
     }
 
     @PostMapping("/register")
