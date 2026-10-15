@@ -1,9 +1,9 @@
 package com.example.OrderService.controller;
 
+import com.example.OrderService.config.UserClient;
 import com.example.OrderService.dto.OrderResponse;
 import com.example.OrderService.dto.User;
 import com.example.OrderService.model.Order;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +18,15 @@ import java.util.List;
 public class OrderController {
 
     private RestTemplate restTemplate;
+    private UserClient userClient;
 
-    public OrderController(RestTemplate restTemplate) {
+
+    public OrderController(RestTemplate restTemplate, UserClient userClient) {
         this.restTemplate = restTemplate;
+        this.userClient = userClient;
     }
 
-      private List<Order> orderList= Arrays.asList(
+    private List<Order> orderList= Arrays.asList(
 
             new Order(1L,1L,"Washing Machine",54000.00),
             new Order(2L,2L,"Macbook M5",3500000.00),
@@ -50,11 +53,27 @@ public class OrderController {
 
         if(order==null) return null;
 
+        /*
+
+        -- Rest Template ---
+
         String url="http://localhost:8081/api/user/"+order.getUserId();
 
         ResponseEntity<User>response=restTemplate.getForEntity(url, User.class);
 
         return new OrderResponse(order,response.getBody());
+
+         */
+
+        /*
+
+        -- Open Feign
+
+         */
+
+        User user= userClient.getUserById(order.getUserId());
+
+        return new OrderResponse(order,user);
 
     }
 
