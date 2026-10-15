@@ -25,6 +25,7 @@ public class UserController {
 
     @GetMapping
     public List<User> getAllUsers(){
+        System.out.println("running on port.....%s%n"+ port);
        return users;
     }
 

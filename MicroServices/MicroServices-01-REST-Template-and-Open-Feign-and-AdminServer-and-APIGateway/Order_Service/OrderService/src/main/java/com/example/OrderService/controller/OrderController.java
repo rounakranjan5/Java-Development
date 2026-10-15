@@ -4,6 +4,7 @@ import com.example.OrderService.config.UserClient;
 import com.example.OrderService.dto.OrderResponse;
 import com.example.OrderService.dto.User;
 import com.example.OrderService.model.Order;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/order")
 public class OrderController {
+
+    @Value("${server.port}")
+    private String serverPort;
 
     private RestTemplate restTemplate;
     private UserClient userClient;
@@ -49,6 +53,9 @@ public class OrderController {
     // get order with user details
     @GetMapping("/{id}/with-user")
     public OrderResponse getOrderWithUser(@PathVariable Long id){
+
+        System.out.println("Request handled by OrderService on port: " + serverPort);
+
         Order order=getOrderById(id);
 
         if(order==null) return null;
