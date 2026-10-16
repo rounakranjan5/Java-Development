@@ -37,6 +37,7 @@ public class FileService {
     private FileResponseDto mapToDto(File file){
         FileResponseDto fileResponseDto=new FileResponseDto();
         fileResponseDto.setName(file.getName());
+        fileResponseDto.setId(file.getId());
         fileResponseDto.setSize(file.getSize());
         fileResponseDto.setFolderId(file.getFolderId());
         fileResponseDto.setPath(file.getPath());
@@ -94,14 +95,16 @@ public class FileService {
             File newFile=new File();
             newFile.setName(fileName!=null ? fileName : name);
             newFile.setFolderId(folderId);
-            newFile.setPath("/files/"+newFile.getId());
-
-            String uploadDirPath=UPLOAD_DIR+ java.io.File.separator+newFile.getId();
-            Files.createDirectories(Paths.get(uploadDirPath));
-            Path filePath=Paths.get(uploadDirPath, newFile.getName());
-            Files.write(filePath,file.getBytes());
+            newFile.setSize(fileSize);
 
             File saved=fileRepository.save(newFile);
+            saved.setPath("/files/"+saved.getId());
+            saved=fileRepository.save(saved);
+
+            String uploadDirPath=UPLOAD_DIR+ java.io.File.separator+saved.getId();
+            Files.createDirectories(Paths.get(uploadDirPath));
+            Path filePath=Paths.get(uploadDirPath, saved.getName());
+            Files.write(filePath,file.getBytes());
 
             return "File Uploaded!!";
         } catch (Exception e) {
@@ -111,12 +114,9 @@ public class FileService {
     }
 
 
-    public Object downloadFile(Long id) {
+    public ResponseEntity<?> downloadFile(Long id) {
         try{
             File file=fileRepository.findById(id).orElseThrow(()-> new RuntimeException("Requested File Not Found!!"));
-            if (file==null){
-                return ResponseEntity.notFound().build();
-            }
 
             Path filePath=Paths.get(UPLOAD_DIR,id.toString(),file.getName());
 

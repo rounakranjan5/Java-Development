@@ -46,13 +46,13 @@ public class FileController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("name") String name, @RequestParam("folderId") Long folderId, @RequestParam("file")MultipartFile file){
+    public ResponseEntity<String> uploadFile(@RequestParam("name") String name, @RequestParam(value = "folderId", required = false) Long folderId, @RequestParam("file")MultipartFile file){
         return ResponseEntity.ok(fileService.uploadFile(name,folderId,file));
     }
 
     @GetMapping("/download/{id}")
     public ResponseEntity<?> downloadFile(@PathVariable Long id){
-        return ResponseEntity.ok(fileService.downloadFile(id));
+        return fileService.downloadFile(id);
     }
 
 }

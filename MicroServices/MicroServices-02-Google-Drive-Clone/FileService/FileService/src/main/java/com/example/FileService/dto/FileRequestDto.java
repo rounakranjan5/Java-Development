@@ -7,6 +7,9 @@ public class FileRequestDto {
     private Long folderId;
     private String path;
 
+    public FileRequestDto(){
+    }
+
     public FileRequestDto(String name, Long size, Long folderId, String path) {
         this.name = name;
         this.size = size;
