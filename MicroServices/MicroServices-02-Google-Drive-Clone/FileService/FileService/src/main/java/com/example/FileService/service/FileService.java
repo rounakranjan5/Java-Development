@@ -4,7 +4,6 @@ import com.example.FileService.dto.FileRequestDto;
 import com.example.FileService.dto.FileResponseDto;
 import com.example.FileService.entity.File;
 import com.example.FileService.repository.FileRepository;
-import org.jspecify.annotations.Nullable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

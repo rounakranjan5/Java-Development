@@ -2,7 +2,6 @@ package com.example.FileService.controller;
 
 import com.example.FileService.dto.FileRequestDto;
 import com.example.FileService.dto.FileResponseDto;
-import com.example.FileService.entity.File;
 import com.example.FileService.service.FileService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
